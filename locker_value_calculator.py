@@ -8,7 +8,7 @@
 # GitHub:    https://github.com/ioh-UwU
 # Twitter:   https://twitter.com/iohTheProtogen
 
-# Distributed under the GNU GPL 3 License
+# Created under the GNU GPL 3 License
 
 # Used For file management
 import os
