@@ -4,6 +4,12 @@
 # ASCII headers generated and modified from:
 # https://patorjk.com/software/taag/#p=display&f=Modular&t=Script
 
+# Script created by:
+# GitHub:    https://github.com/ioh-UwU
+# Twitter:   https://twitter.com/iohTheProtogen
+
+# Distributed under the GNU GPL 3 License
+
 # Used For file management
 import os
 # Used to ensure Discord is the active window before performing any action.
