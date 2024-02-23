@@ -1,3 +1,4 @@
+# TO USE: download the repository. The .py file will be directly in the repository folder, but the executable is inside the `locker-value-caluclator`  folder.
 # FalL Guys Locker Value Calculator
 A script to find how many Showbucks and Kudos your Fall Guys locker is worth!
 # Prerequisites
