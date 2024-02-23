@@ -1,6 +1,6 @@
-# TO USE: download the repository. The .py file will be directly in the repository folder, but the executable is inside the `locker-value-caluclator`  folder.
 # FalL Guys Locker Value Calculator
-A script to find how many Showbucks and Kudos your Fall Guys locker is worth!
+## A script to find how many Showbucks and Kudos your Fall Guys locker is worth!
+## _TO USE: Download the repository. The .py file will be directly in the repository folder, but the executable is inside the `locker-value-caluclator`  folder. I would have made it a single executable but GitHub has a commit file size limit of 25MB lol._
 # Prerequisites
 * The [Discord](https://discord.com/download) app
 * A server with the [Bean Bot](https://discord.com/api/oauth2/authorize?client_id=757943040198443054&permissions=380104993856&scope=bot%20applications.commands) Discord bot
