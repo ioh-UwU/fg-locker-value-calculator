@@ -310,10 +310,10 @@ for locker in LOCKER_STRINGS:
     items = []
     locker_page_info = [[], -100, 100, 0] # Temporary assignments.
     while locker_page_info[1] < locker_page_info[2]:
+        locker_page_info = [[], -100, 100, 0] # Temporary assignments.
         # Gets the data from the copied text.
         while not locker_page_info[0]:
             locker_page_info = copy_locker_text(locker)
-
         # Clicks the Next button.
         pgui.leftClick(next_button[0], next_button[1])
         pgui.moveTo(next_button[0], next_button[1] + 30)
