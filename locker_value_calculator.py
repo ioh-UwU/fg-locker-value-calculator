@@ -213,7 +213,7 @@ def on_click(x, y, button, pressed):
 mouse_listener = mouse.Listener(on_click=on_click)
 mouse_listener.start()
 
-LOCKER_STRINGS = ('upper', 'lower', 'emote', 'face', 'colour', 'pattern', 'celebration', 'nameplate', 'nickname')
+LOCKER_STRINGS = ('Upper Costumes', 'Lower Costumes', 'Emotes', 'Faceplates', 'Colours', 'Patterns', 'Celebrations', 'Nameplates', 'Nicknames')
 bbox = [0, 0, 0, 0]
 next_button = [0, 0]
 data = {}
@@ -237,21 +237,37 @@ def copy_locker_text(locker_type):
         # Removes all the date strings, '\r' escapes, and the favorited item emojis.
         formatted_text = [l.replace(':fgheart:', '').replace('\r', '').strip() for l in copied_text if "Earned:" not in l]
 
-        # Removes the filler from the start of the array.
-        # (Not a static value to account for possible variance in the height of the copied text area.)
-        for _ in formatted_text:
-            cull = str(formatted_text.pop(0)).lower()    # vvv Prevents improper parsing caused by short text boxes.
-            if 'locker' in cull and locker_type in cull:
-                break
-
+        # Culls the front part twice to ensure no extra text is left at the top.
+        # While loop ensures all junk text is removed, even if more is copied than expected.
+        culled = False
+        while not culled:
+            # Removes the filler from the start of the array.
+            # (Not a static value to account for possible variance in the height of the copied text area.)
+            for _ in formatted_text:
+                cull = str(formatted_text.pop(0))
+                if 'Locker' in cull and locker_type in cull:
+                    break
+            culled = True
+            for item in formatted_text:
+                if 'Locker' in item and locker_type in item:
+                    print('doing it again!')
+                    culled = False
+                    break
+        
+        print(formatted_text)
         # Gets the current and maximum page numbers. (Used for iteration.)
         temp_stats = formatted_text[-1].split('•')[0].split(' ')
         page, page_max = temp_stats[1], temp_stats[3]
         # Final cleaning up of the array of items.
         item_amount = formatted_text[0].split(' ')[-2]
         final_items = formatted_text
-        for i in (0, -1, -1):
-            final_items.pop(i)
+        if "Showing" in final_items[0]:
+            final_items.pop(0)
+        if "Page" in final_items[-1]:
+            final_items.pop(-1)
+        if final_items[-1] == "Image":
+            final_items.pop(-1)
+        print(final_items)
     # Error occurs if the Next button is clicked too quickly.
     # Helps prevent accidentally skipping pages as well.
     except IndexError:
