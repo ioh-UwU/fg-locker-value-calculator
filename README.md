@@ -73,3 +73,18 @@ The click input may not be registered on some rare instances. Just click again! 
 As with anything like this, there will be edge cases that may not be accounted for properly. If a number is too high, something (or several) has most-likely gotten around the checks in place and been counted more than once, and this can be resolved by running the script again with better calibration positions.
 * ### The command wasn't sent and is uncompleted in my message box!
 This shouldn't happen, but if something strange occurs, the command can be completed manually and submitted prior to continuing with text input in the terminal.
+
+# What does the output mean?
+### `Total Items`
+The total number of cosmetic items in your locker.
+### `Unobtainable Items`
+The number of items in your locker that have not been obtainable since Fall Guys became free-to-play.
+### `Unpriced Items`
+The number of items in your locker that have been or are still obtainable since the start of free-to-play and do not have a price attatched to them.\
+*(Season/Fame Pass items, Crown Rank items, Event items, etc.)*
+### `Showbucks Value`
+The total cost of all of your items that can be purchased with Showbucks.\
+*(This includes items that were purchased in Legacy Fall Guys and have since been given a Showbucks price.)*
+### `Kudos Value`
+The total cost of all of your items that can be purchased with Kudos.\
+*(This does not account for items that were purchased in Legacy Fall Guys and are currently unobtainable.)*
