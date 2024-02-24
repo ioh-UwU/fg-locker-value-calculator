@@ -253,8 +253,7 @@ def copy_locker_text(locker_type):
                     print('doing it again!')
                     culled = False
                     break
-        
-        print(formatted_text)
+                    
         # Gets the current and maximum page numbers. (Used for iteration.)
         temp_stats = formatted_text[-1].split('•')[0].split(' ')
         page, page_max = temp_stats[1], temp_stats[3]
@@ -267,7 +266,7 @@ def copy_locker_text(locker_type):
             final_items.pop(-1)
         if final_items[-1] == "Image":
             final_items.pop(-1)
-        print(final_items)
+    
     # Error occurs if the Next button is clicked too quickly.
     # Helps prevent accidentally skipping pages as well.
     except IndexError:
