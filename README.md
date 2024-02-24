@@ -1,5 +1,8 @@
 # FalL Guys Locker Value Calculator
 ## A script to find how many Showbucks and Kudos your Fall Guys locker is worth!
+
+## Item Pricing data obtained from the [Fall Guys Cosmetics Spreadsheet](https://docs.google.com/spreadsheets/d/1eaa8MfYVrtkA1apyfKGWITRLAUqzPoBo10dsbXGMbDM/edit#gid=1017097573)
+
 ## _TO USE: Download the repository. The raw python file will be directly in the repository folder, but the executable is inside the `locker-value-calculator`  folder. I would have made it a single executable but GitHub has a commit file size limit of 25MB lol._
 # Prerequisites
 * The [Discord](https://discord.com/download) app
