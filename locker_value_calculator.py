@@ -1,9 +1,6 @@
 # SHUT UP PYLINT NOBODYY CARES
 # pylint: disable=line-too-long, invalid-name, missing-module-docstring, missing-function-docstring, redefined-outer-name, global-statement, unused-argument, c-extension-no-member
 
-# ASCII headers generated and modified from:
-# https://patorjk.com/software/taag/#p=display&f=Modular&t=Script
-
 # Script created by:
 # GitHub:    https://github.com/ioh-UwU
 # Twitter:   https://twitter.com/iohTheProtogen
@@ -25,12 +22,16 @@ import pyautogui as pgui
 # Used to copy data from the clipboard.
 from pyperclip import paste
 
-def wait_for_continue():
+def wait_for_continue(final=False):
     '''Waits for the user to type and enter "continue."
     '''
     game_setup_confirmation = ''
-    while game_setup_confirmation.lower().strip() not in ('continue', 'exit'):
-        game_setup_confirmation = input('Enter "Continue" to continue or "Exit" to stop the program: ')
+    if not final:
+        while game_setup_confirmation.lower().strip() not in ('continue', 'exit'):
+            game_setup_confirmation = input('Enter "Continue" to continue or "Exit" to stop the program: ')
+    else:
+        while game_setup_confirmation.lower().strip() != 'exit':
+            game_setup_confirmation = input('Enter "Exit" to stop the program: ')
     if game_setup_confirmation.lower().strip() == 'exit':
         quit()
 
@@ -51,14 +52,6 @@ def wait_for_dc_active_win():
     while clicking:
         pass
 
-#  _______  _______  ______    _______  _______  ______   _______  __   __  _______  _______  _______  _______
-# |       ||       ||    _ |  |       ||   _   ||      | |       ||  | |  ||       ||       ||       ||       |
-# |  _____||    _  ||   | ||  |    ___||  |_|  ||  _    ||  _____||  |_|  ||    ___||    ___||_     _||  _____|
-# | |_____ |   |_| ||   |_||_ |   |___ |       || | |   || |_____ |       ||   |___ |   |___   |   |  | |_____
-# |_____  ||    ___||    __  ||    ___||       || |_|   ||_____  ||       ||    ___||    ___|  |   |  |_____  |
-#  _____| ||   |    |   |  | ||   |___ |   _   ||       | _____| ||   _   ||   |___ |   |___   |   |   _____| |
-# |_______||___|    |___|  |_||_______||__| |__||______| |_______||__| |__||_______||_______|  |___|  |_______|
-
 # Google Sheets spreadsheet Group IDs (Don't touch these! They're how the program knows which sheets are which!)
 GIDS = {
     'changelog': '349407293',
@@ -76,12 +69,10 @@ GIDS = {
 }
 FILE_NAMES = GIDS.keys()
 
-
 def get_spreadsheet_url(gid):
     """Gets the URL of a spreadsheet form its GID (so I only need to store the GIDs in the dictionary above instead of the whole URL)
     """
     return f'https://docs.google.com/spreadsheets/d/1eaa8MfYVrtkA1apyfKGWITRLAUqzPoBo10dsbXGMbDM/export?gid={gid}&format=csv'
-
 
 def update_csv_files():
     """Downloads up-to-date versions of all of the spreadsheets.
@@ -90,7 +81,6 @@ def update_csv_files():
         print(f'Updating {file_name}.csv')
         f = get(get_spreadsheet_url(GIDS[file_name]), allow_redirects=True, timeout=20)
         open(f'spreadsheets/{file_name}.csv', 'wb').write(f.content)
-
 
 def determine_prices(dataframe, sb_ceiling, price_col, currency_col):
     """Determines what currency, if any, each item in a spreadsheet should be if it is blank.
@@ -128,13 +118,6 @@ def determine_prices(dataframe, sb_ceiling, price_col, currency_col):
 
         # Otherwise, leave it as-is!
 
-#  _______  _______  ______    ___   _______  _______
-# |       ||       ||    _ |  |   | |       ||       |
-# |  _____||       ||   | ||  |   | |    _  ||_     _|
-# | |_____ |    ___||   |_||_ |   | |   |_| |  |   |
-# |_____  ||   |    |    __  ||   | |    ___|  |   |
-#  _____| ||   |___ |   |  | ||   | |   |      |   |
-# |_______||_______||___|  |_||___| |___|      |___|
 # Initial confirmation to start.
 print('Be sure to read the readme before continuing!')
 print('This script creates and manages its files and it is HIGHLY reccomended that you run it inside its own folder.')
@@ -151,7 +134,6 @@ cl = get(get_spreadsheet_url(GIDS['changelog']), allow_redirects=True, timeout=2
 open('spreadsheets/changelog_new.csv', 'wb').write(cl.content)
 changelog_new = pd.DataFrame(pd.read_csv('spreadsheets/changelog_new.csv'))
 
-
 # If there is already a changelog, see if the new one has an update. If so, update everything.
 if os.path.exists('spreadsheets/changelog.csv'):
     changelog = pd.DataFrame(pd.read_csv('spreadsheets/changelog.csv'))
@@ -166,7 +148,6 @@ else:
     print('No spreadsheets found. Downloading them now...')
     update_csv_files()
 os.remove('spreadsheets/changelog_new.csv')
-
 
 # Creates updated dataframes from the spreadsheets and their key/value pairs!
 dataframes = dict(zip(FILE_NAMES, [None]*len(FILE_NAMES)))
@@ -255,7 +236,7 @@ def copy_locker_text(locker_type):
                 if 'Locker' in item and locker_type in item:
                     culled = False
                     break
-                    
+
         # Gets the current and maximum page numbers. (Used for iteration.)
         temp_stats = formatted_text[-1].split('•')[0].split(' ')
         page, page_max = temp_stats[1], temp_stats[3]
@@ -268,7 +249,7 @@ def copy_locker_text(locker_type):
             final_items.pop(-1)
         if final_items[-1] == "Image":
             final_items.pop(-1)
-    
+
     # Error occurs if the Next button is clicked too quickly.
     # Helps prevent accidentally skipping pages as well.
     except IndexError:
@@ -335,7 +316,7 @@ for locker in LOCKER_STRINGS:
             # Clicks the Next button; delay to reduce likelihood of unregistered input.
             pgui.moveTo(next_button[0], next_button[1])
             pgui.mouseDown()
-            pgui.sleep(0.1)
+            pgui.sleep(0.2)
             pgui.mouseUp()
             pgui.moveTo(next_button[0], next_button[1] + 30)
             items += locker_page_info[0]
@@ -422,3 +403,6 @@ print(f'Unobtainable items: {unobtainable}')
 print(f'Unpriced items: {no_currency}')
 print(f'Showbucks Value: {showbucks_price}')
 print(f'Kudos Value: {kudos_price}')
+
+#Prevents the program from closing immediately after results are printed.
+wait_for_continue(True)
