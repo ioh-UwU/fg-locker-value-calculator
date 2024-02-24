@@ -399,8 +399,8 @@ for key, item_set in data.items():
 
 # Displays all of the results!
 print(f'\nTotal Items: {total_items}')
-print(f'Unobtainable items: {unobtainable}')
-print(f'Unpriced items: {no_currency}')
+print(f'Unobtainable Items: {unobtainable}')
+print(f'Unpriced Items: {no_currency}')
 print(f'Showbucks Value: {showbucks_price}')
 print(f'Kudos Value: {kudos_price}')
 
