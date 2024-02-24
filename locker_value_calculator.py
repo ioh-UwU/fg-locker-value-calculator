@@ -206,9 +206,12 @@ for data_pair in data_pairs:
 # Listener to detect mouse clicks.
 mouse_pos = None
 clicking = None
+pressed_button = None
 def on_click(x, y, button, pressed):
-    global mouse_pos, clicking
+    global mouse_pos, clicking, pressed_button
     mouse_pos = (x, y)
+    pressed_button = button
+
     clicking = pressed
 mouse_listener = mouse.Listener(on_click=on_click)
 mouse_listener.start()
@@ -250,7 +253,6 @@ def copy_locker_text(locker_type):
             culled = True
             for item in formatted_text:
                 if 'Locker' in item and locker_type in item:
-                    print('doing it again!')
                     culled = False
                     break
                     
@@ -325,19 +327,25 @@ for locker in LOCKER_STRINGS:
     items = []
     locker_page_info = [[], -100, 100, 0] # Temporary assignments.
     while locker_page_info[1] < locker_page_info[2]:
-        locker_page_info = [[], -100, 100, 0] # Temporary assignments.
-        # Gets the data from the copied text.
-        while not locker_page_info[0]:
-            locker_page_info = copy_locker_text(locker)
-        # Clicks the Next button.
-        pgui.leftClick(next_button[0], next_button[1])
-        pgui.moveTo(next_button[0], next_button[1] + 30)
-        items += locker_page_info[0]
-
-        # Adds to the total count on the first page only.
-        if locker_page_info[0] == 1:
-            total_items += locker_page_info[3]
-
+        if pressed_button == mouse.Button.left:
+            locker_page_info = [[], -100, 100, 0] # Temporary assignments.
+            # Gets the data from the copied text.
+            while not locker_page_info[0]:
+                locker_page_info = copy_locker_text(locker)
+            # Clicks the Next button; delay to reduce likelihood of unregistered input.
+            pgui.moveTo(next_button[0], next_button[1])
+            pgui.mouseDown()
+            pgui.sleep(0.1)
+            pgui.mouseUp()
+            pgui.moveTo(next_button[0], next_button[1] + 30)
+            items += locker_page_info[0]
+            # Adds to the total count on the first page only.
+            if locker_page_info[1] == 1:
+                total_items += locker_page_info[3]
+        elif pressed_button == mouse.Button.middle:
+            # Clicks the Next button if Interaction Failed.
+            pgui.leftClick(next_button[0], next_button[1] - 30)
+            pgui.moveTo(next_button[0], next_button[1] + 30)
         # Waits for user input to account for delay when the bot loads a new page.
         print('Left click to continue.')
         while not clicking:
@@ -354,22 +362,21 @@ print('All data collected. Calculating locker value... (This may take a while.)'
 
 # Format --> data_key: [dataframes, item_price_cols, item_currency_cols]
 DATA_TO_DATAFRAME = {
-    'upper': [['non_seasonal_costumes', 'single_costume_pieces', 'ffa_costumes', 'legacy_costumes'], [3, 4, 3, 3], [6, 4, 6, 6]],
-    'lower': [['non_seasonal_costumes', 'single_costume_pieces', 'ffa_costumes', 'legacy_costumes'], [4, 4, 4, 4], [6, 4, 6, 6]],
-    'emote': [['emotes'], [3], [4]],
-    'face': [['faces'], [3], [4]],
-    'colour': [['colors'], [3], [4]],
-    'pattern': [['patterns'], [3], [4]],
-    'celebration': [['celebrations'], [3], [4]], 
-    'nameplate': [['banners'], [3], [4]],
-    'nickname': [['nicknames'], [3], [4]] 
+    'Upper Costumes': [['non_seasonal_costumes', 'single_costume_pieces', 'ffa_costumes', 'legacy_costumes'], [3, 4, 3, 3], [6, 4, 6, 6]],
+    'Lower Costumes': [['non_seasonal_costumes', 'single_costume_pieces', 'ffa_costumes', 'legacy_costumes'], [4, 4, 4, 4], [6, 4, 6, 6]],
+    'Emotes': [['emotes'], [3], [4]],
+    'Faceplates': [['faces'], [3], [4]],
+    'Colours': [['colors'], [3], [4]],
+    'Patterns': [['patterns'], [3], [4]],
+    'Celebrations': [['celebrations'], [3], [4]], 
+    'Nameplates': [['banners'], [3], [4]],
+    'Nicknames': [['nicknames'], [3], [4]] 
 }
 
 checked_items = []
 
 kudos_price = 0
 showbucks_price = 0
-dollars_price = 0
 no_currency = 0
 unobtainable = 0
 

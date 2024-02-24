@@ -66,7 +66,7 @@ For the last page, once the text is highlighted and copied, click again to enter
 
 # Potential Problems
 * ### Interaction Failed after "Next" is clicked!
-First wait a few seconds to see if the error goes away on its own, but if this does not work, simply click the "Previous" button. This will remove the error message, copy some text again (duplicates are accounted for, so this does not matter), and then continue once caught back up.
+First wait a few seconds to see if the error goes away on its own, but if this does not work, simply press down (not scroll) the middle mouse button. This will click the Next button and go to the next page. You can then resume left-clicking as normal.
 * ### A number in the results is much higher than I think it should be!
 As with anything like this, there will be edge cases that may not be accounted for properly. If a number is too high, something (or several) has most-likely gotten around the checks in place and been counted more than once, and this can be resolved by running the script again with better calibration positions.
 * ### The command wasn't sent and is uncompleted in my message box!
