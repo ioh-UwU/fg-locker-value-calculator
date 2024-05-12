@@ -1,4 +1,6 @@
 # FalL Guys Locker Value Calculator
+This is the most involved data science project I've ever worked on!
+
 ## A script to find how many Showbucks and Kudos your Fall Guys locker is worth!
 
 ## Item Pricing data obtained from the [Fall Guys Cosmetics Spreadsheet](https://docs.google.com/spreadsheets/d/1eaa8MfYVrtkA1apyfKGWITRLAUqzPoBo10dsbXGMbDM/edit#gid=1017097573)
